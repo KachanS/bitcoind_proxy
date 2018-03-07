@@ -1,15 +1,23 @@
 'use strict';
 const _ = require('lodash');
-let bitcoin = require('bitcoinjs-lib')
-
-var client = new bitcoin.Client({
-  host: 'localhost',
-});
+const Client = require('bitcoin-core');
+const client = new Client({ network: 'regtest' });
 
 exports.page = function (req, res) {
 
     res.json({
         result : true
     });
+
+};
+exports.info = function (req, res) {
+
+    client.getInfo((error, help) => {
+        res.json({
+            result : true,
+            help : help
+        });
+    });
+    
 
 };
