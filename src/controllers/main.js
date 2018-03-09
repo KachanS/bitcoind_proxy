@@ -13,8 +13,8 @@ exports.page = function (req, res) {
 
 };
 exports.balance = function (req, res) {
-    if (req.alias) {
-        client.call('getbalance', [req.alias], function (err, r) {
+    if (req.query.alias) {
+        client.call('getbalance', [req.query.alias], function (err, r) {
             let result = true, error = null, data;
             if (err == null) {
                 data = r
@@ -39,8 +39,8 @@ exports.balance = function (req, res) {
 };
 
 exports.accountAddress = function (req, res) {
-    if (req.alias) {
-        client.call('getaccountaddress', [req.alias], function (err, r) {
+    if (req.query.alias) {
+        client.call('getaccountaddress', [req.query.alias], function (err, r) {
             let result = true, error = null, data;
             if (err == null) {
                 data = r
