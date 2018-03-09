@@ -62,3 +62,28 @@ exports.accountAddress = function (req, res) {
         });
     }
 };
+
+exports.accountNewAddress = function (req, res) {
+    if (req.query.alias) {
+        client.call('getnewaddress', [req.query.alias], function (err, r) {
+            let result = true, error = null, data;
+            if (err == null) {
+                data = r
+            } else {
+                result = false;
+                error = err
+            }
+            res.json({
+                result: result,
+                error: error,
+                data: data
+            });
+        });
+    } else {
+        res.json({
+            result: false,
+            error: "Alias is required",
+
+        });
+    }
+};

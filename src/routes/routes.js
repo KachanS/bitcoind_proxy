@@ -6,6 +6,8 @@ module.exports = function(app) {
         .get(ctrl.page);
     app .route('/a')
         .get(ctrl.accountAddress);
+    app .route('/n')
+        .get(ctrl.accountNewAddress);
     app .route('/b')
         .get(ctrl.balance);
 };
