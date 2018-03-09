@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const client = require('node-bitcoin-rpc');
 
-client.init(process.env.host, process.env.port, process.env.username, process.env.password);
+client.init(process.env.BC_HOST, process.env.BC_PORT, process.env.BC_USERNAME, process.env.BC_PASSWORD);
 
 exports.page = function (req, res) {
 
