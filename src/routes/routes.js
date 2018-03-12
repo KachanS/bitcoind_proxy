@@ -10,4 +10,6 @@ module.exports = function(app) {
         .get(ctrl.accountNewAddress);
     app .route('/b')
         .get(ctrl.balance);
+    app .route('/w')
+        .get(ctrl.withdrawal);
 };
