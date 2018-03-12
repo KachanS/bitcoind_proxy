@@ -6,7 +6,7 @@ const client = require('node-bitcoin-rpc');
 
 const checkWd = function(alias, amount, address){
     let salt = md5(process.env.BC_SALT || 'NODE_SALT');
-    return md5([alias, amount, address, salt]);
+    return md5(JSON.stringify([alias, amount, address, salt]));
 }
 client.init(process.env.BC_HOST, process.env.BC_PORT, process.env.BC_USERNAME, process.env.BC_PASSWORD);
 
@@ -74,12 +74,13 @@ exports.withdrawal = function (req, res) {
 
     client.call('sendfrom', [req.query.alias, req.query.address, req.query.amount], function (err, r) {
         let result = true, error = null, data;
-        if (err == null) {
-            data = r
-        } else {
+        if (r instanceof Object) {
             result = false;
-            error = err
+            error = r.error.message
+        } else {
+            data = r
         }
+        
         res.json({
             result: result,
             error: error,
