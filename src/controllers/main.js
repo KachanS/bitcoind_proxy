@@ -19,7 +19,7 @@ exports.page = function (req, res) {
 };
 exports.balance = function (req, res) {
     if (req.query.alias) {
-        client.call('getbalance', [req.query.alias], function (err, r) {
+        client.call('getbalance', [req.query.alias, 0], function (err, r) {
             let result = true, error = null, data;
             if (err == null) {
                 data = r
