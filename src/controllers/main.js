@@ -6,7 +6,7 @@ const client = require('node-bitcoin-rpc');
 
 const checkWd = function(alias, amount, address){
     let salt = md5(process.env.BC_SALT || 'NODE_SALT');
-    return md5(JSON.stringify([alias, amount, address, salt]));
+    return md5(JSON.stringify([alias, Math.round(amount*100000000), address, salt]));
 }
 client.init(process.env.BC_HOST, process.env.BC_PORT, process.env.BC_USERNAME, process.env.BC_PASSWORD);
 
