@@ -9,6 +9,7 @@ const checkWd = function(alias, amount, address){
     return md5(JSON.stringify([alias, Math.round(amount*100000000), address, salt]));
 }
 client.init(process.env.BC_HOST, process.env.BC_PORT, process.env.BC_USERNAME, process.env.BC_PASSWORD);
+client.setTimeout(process.env.BC_TIMEOUT || 1000);
 
 exports.page = function (req, res) {
 
