@@ -20,7 +20,8 @@ exports.page = function (req, res) {
 };
 exports.balance = function (req, res) {
     if (req.query.alias) {
-        client.call('getbalance', [req.query.alias, 0], function (err, r) {
+        let c = req.query.c ? parseInt(req.query.c) : 0;
+        client.call('getbalance', [req.query.alias, c], function (err, r) {
             let result = true, error = null, data;
             if (err == null) {
                 data = r
@@ -74,6 +75,54 @@ exports.withdrawal = function (req, res) {
     }
 
     client.call('sendfrom', [req.query.alias, req.query.address, req.query.amount], function (err, r) {
+        let result = true, error = null, data;
+        if (r instanceof Object) {
+            result = false;
+            error = r.error.message
+        } else {
+            data = r
+        }
+        
+        res.json({
+            result: result,
+            error: error,
+            data: data
+        });
+    });
+    
+
+};
+
+exports.movement = function (req, res) {
+    let required = ['source', 'amount', 'target', 'check'];
+    for(var i = 0; i < required.length; i++ ){
+        if (!req.query.hasOwnProperty(required[i])) {
+             res.json({
+                result: false,
+                error: required[i]+" is required",
+
+            });
+            return;
+        }
+    }
+    
+    if (isNaN(parseFloat(req.query.amount)) || req.query.amount <= 0) {
+        res.json({
+                result: false,
+                error: "Illegal amount",
+            });
+        return;    
+    }    
+    
+    if (checkWd(req.query.source, req.query.amount, req.query.target) != req.query.check) {
+        res.json({
+                result: false,
+                error: "Illegal check",
+            });
+        return;    
+    }
+
+    client.call('move', [req.query.source, req.query.target, req.query.amount], function (err, r) {
         let result = true, error = null, data;
         if (r instanceof Object) {
             result = false;
