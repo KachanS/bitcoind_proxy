@@ -114,7 +114,7 @@ exports.movement = function (req, res) {
         return;    
     }    
     
-    if (checkWd(req.query.source, req.query.target, req.query.amount) != req.query.check) {
+    if (checkWd(req.query.source, req.query.amount, req.query.target) != req.query.check) {
         res.json({
                 result: false,
                 error: "Illegal check",
