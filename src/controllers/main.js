@@ -29,11 +29,15 @@ exports.balance = function (req, res) {
                 result = false;
                 error = err
             }
-            res.json({
-                result: result,
-                error: error,
-                data: data
-            });
+            try {
+                res.json({
+                    result: result,
+                    error: error,
+                    data: data
+                });
+            } catch (e){
+                console.log(e)
+            }
         });
     } else {
         res.json({
@@ -82,12 +86,15 @@ exports.withdrawal = function (req, res) {
         } else {
             data = r
         }
-        
-        res.json({
-            result: result,
-            error: error,
-            data: data
-        });
+        try {
+            res.json({
+                result: result,
+                error: error,
+                data: data
+            });
+        } catch (e){
+            console.log(e)
+        }
     });
     
 
@@ -130,12 +137,15 @@ exports.movement = function (req, res) {
         } else {
             data = r
         }
-        
-        res.json({
-            result: result,
-            error: error,
-            data: data
-        });
+        try {
+            res.json({
+                result: result,
+                error: error,
+                data: data
+            });
+        } catch (e){
+            console.log(e)
+        }
     });
     
 
@@ -151,11 +161,15 @@ exports.accountAddress = function (req, res) {
                 result = false;
                 error = err
             }
-            res.json({
-                result: result,
-                error: error,
-                data: data
-            });
+            try {
+                res.json({
+                    result: result,
+                    error: error,
+                    data: data
+                });
+            } catch (e){
+                console.log(e)
+            }
         });
     } else {
         res.json({
@@ -176,11 +190,15 @@ exports.accountNewAddress = function (req, res) {
                 result = false;
                 error = err
             }
-            res.json({
-                result: result,
-                error: error,
-                data: data
-            });
+            try {
+                res.json({
+                    result: result,
+                    error: error,
+                    data: data
+                });
+            } catch (e){
+                console.log(e)
+            }
         });
     } else {
         res.json({
