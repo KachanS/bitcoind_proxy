@@ -100,6 +100,50 @@ exports.withdrawal = function (req, res) {
 
 };
 
+exports.txs = function (req, res) {
+    
+    if (req.query.hasOwnProperty('count') && (isNaN(parseInt(req.query.count)) || req.query.count < 0)) {
+        res.json({
+            result: false,
+            error: "Illegal count",
+        });
+        return;    
+    }    
+    
+    if (req.query.hasOwnProperty('offset') && (isNaN(parseInt(req.query.offset)) || req.query.offset < 0)) {
+        res.json({
+            result: false,
+            error: "Illegal offset",
+        });
+        return;    
+    }    
+    
+    client.call('listtransactions', 
+        [
+            req.query.alias, 
+            req.query.hasOwnProperty('count') ? req.query.count : null,  
+            req.query.hasOwnProperty('offset')? req.query.offset : null], function (err, r) {
+        let result = true, error = null, data;
+        if (r instanceof Object) {
+            result = false;
+            error = r.error.message
+        } else {
+            data = r
+        }
+        try {
+            res.json({
+                result: result,
+                error: error,
+                data: data
+            });
+        } catch (e){
+            console.log(e)
+        }
+    });
+    
+
+};
+
 exports.movement = function (req, res) {
     let required = ['source', 'amount', 'target', 'check'];
     for(var i = 0; i < required.length; i++ ){
