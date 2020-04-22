@@ -14,4 +14,6 @@ module.exports = function(app) {
         .get(ctrl.withdrawal);
     app .route('/m')
         .get(ctrl.movement);
+    app .route('/t')
+        .get(ctrl.txs);
 };
