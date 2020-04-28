@@ -121,8 +121,8 @@ exports.txs = function (req, res) {
     client.call('listtransactions', 
         [
             req.query.hasOwnProperty('alias') ? req.query.alias : null,
-            req.query.hasOwnProperty('count') ? req.query.count : null,  
-            req.query.hasOwnProperty('offset')? req.query.offset : null], function (err, r) {
+            req.query.hasOwnProperty('count') ? parseInt(req.query.count) : null,  
+            req.query.hasOwnProperty('offset')? parseInt(req.query.offset) : null], function (err, r) {
         let result = true, error = null, data;
         if (!(r instanceof Object) || r.error instanceof Object) {
             result = false;
